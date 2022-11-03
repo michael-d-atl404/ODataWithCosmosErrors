@@ -3,6 +3,51 @@ OData with Cosmos errors
 
 Created to debug errors I have been running into with OData on a Cosmos container.
 
+This should run against a Cosmos database (you will have to update connection directly in \Controllers\AuditsController.cs as I did not take the time to do a real config in this dummy project). I ran against a local Cosmos Emulator (https://learn.microsoft.com/en-us/azure/cosmos-db/local-emulator).
+
+Setup: Database = "Local", Container id = "Audits", Partition key = "/operationId"
+
+Then for the indexing policy I updated to:
+
+```
+{
+    "indexingMode": "consistent",
+    "automatic": true,
+    "includedPaths": [
+        {
+            "path": "/*"
+        }
+    ],
+    "excludedPaths": [
+        {
+            "path": "/\"_etag\"/?"
+        }
+    ],
+    "compositeIndexes": [
+        [
+            {
+                "path": "/Date",
+                "order": "descending"
+            },
+            {
+                "path": "/id",
+                "order": "descending"
+            }
+        ],
+        [
+            {
+                "path": "/Date",
+                "order": "ascending"
+            },
+            {
+                "path": "/id",
+                "order": "descending"
+            }
+        ]
+    ]
+}
+```
+
 The first 2 errors I was able to fix with Newtonsoft.Json default settings. Not ideal, but they seemed to help:
 
 ```
