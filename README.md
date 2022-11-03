@@ -5,7 +5,7 @@ Created to debug errors I have been running into with OData on a Cosmos containe
 
 The first 2 errors I was able to fix with Newtonsoft.Json default settings. Not ideal, but they seemed to help:
 
----------------
+```
 
 /* 
  * ERROR-1: ReferenceLoopHandling.Ignore solves this error:
@@ -34,12 +34,11 @@ JsonConvert.DefaultSettings = () => new JsonSerializerSettings
     PreserveReferencesHandling = PreserveReferencesHandling.Objects,
 };
 
-----------------
+```
 
 The next error was apparently solved or bypassed by a code snippet I found from another user:
 
-----------------
-
+```
     /*
      * ERROR-3 added this in to resolve this error:
 
@@ -83,11 +82,11 @@ The next error was apparently solved or bypassed by a code snippet I found from 
         }
     }
     
-----------------
+```
 
 The main error I am not yet able to resolve is:
 
------------------
+```
 https://localhost:7253/odata/Audits?$count=true&$select=id,user,date,changes&$orderby=date%20desc&$top=50
 
       Microsoft.Azure.Cosmos.Linq.DocumentQueryException: Expression with NodeType 'Conditional' is not supported., Windows/10.0.19044 cosmos-netstandard-sdk/3.29.4
@@ -153,10 +152,11 @@ https://localhost:7253/odata/Audits?$count=true&$select=id,user,date,changes&$or
          at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.ExecuteWithFilterAsync(IHttpSocketAdapter injectScriptSocket, String requestId, HttpContext httpContext)
          at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
          at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
------------------
+```
 
 Another error I am seeing with a different URL is also a little odd. I guess I can understand it but I am not sure why the IEnumerable "Changes" is not being treated as a navigatable property.
------------------
+
+```
 https://localhost:7253/odata/Audits?$count=true&$select=id,user,date&$expand=changes($select=prop,old,new)&$orderby=date%20desc&$top=50
 
 {
@@ -185,4 +185,4 @@ https://localhost:7253/odata/Audits?$count=true&$select=id,user,date&$expand=cha
     }
   }
 }
------------------
+```
