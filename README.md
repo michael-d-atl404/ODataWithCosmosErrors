@@ -6,6 +6,9 @@ Created to debug errors I have been running into with OData on a Cosmos containe
 The first 2 errors I was able to fix with Newtonsoft.Json default settings. Not ideal, but they seemed to help:
 
 ```
+These errors only seemed to happen when the $select option is added to the base OData URL:
+
+https://localhost:7253/odata/Audits?$select=id,user,date,changes
 
 /* 
  * ERROR-1: ReferenceLoopHandling.Ignore solves this error:
@@ -39,6 +42,10 @@ JsonConvert.DefaultSettings = () => new JsonSerializerSettings
 The next error was apparently solved or bypassed by a code snippet I found from another user:
 
 ```
+This error only seemed to happen when the $select option is added to the base OData URL:
+
+https://localhost:7253/odata/Audits?$select=id,user,date,changes
+
     /*
      * ERROR-3 added this in to resolve this error:
 
