@@ -48,6 +48,57 @@ Then for the indexing policy I updated to:
 }
 ```
 
+Sample documents to add to the database:
+```
+{
+    "id": "1234:Company",
+    "operationId": "17679401-1000-0000-0000-000000000000",
+    "EntityId": "1234",
+    "EntityType": 1,
+    "ChangeType": 1,
+    "User": "First User",
+    "Date": "2022-08-01T12:33:18",
+    "Changes": [
+        {
+            "Prop": "Name",
+            "New": "Company One"
+        },
+        {
+            "Prop": "Number",
+            "New": "000001"
+        },
+        {
+            "Prop": "Phone",
+            "New": "555-123-4567"
+        }
+    ]
+}
+
+{
+    "id": "2345:Company",
+    "operationId": "17679401-2000-0000-0000-000000000000",
+    "EntityId": "2345",
+    "EntityType": 1,
+    "ChangeType": 1,
+    "User": "First User",
+    "Date": "2022-08-01T12:34:18",
+    "Changes": [
+        {
+            "Prop": "Name",
+            "New": "Company Two"
+        },
+        {
+            "Prop": "Number",
+            "New": "000002"
+        },
+        {
+            "Prop": "Phone",
+            "New": "555-234-5678"
+        }
+    ]
+}
+```
+
 The first 2 errors I was able to fix with Newtonsoft.Json default settings. Not ideal, but they seemed to help:
 
 ```
